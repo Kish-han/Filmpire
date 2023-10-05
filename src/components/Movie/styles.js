@@ -3,6 +3,8 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles((theme) => ({
     movie: {
         padding: '10px',
+        overflowX: 'hidden',
+        backgroundColor: 'red'
     },
     links:{
         alignItems: 'center',
