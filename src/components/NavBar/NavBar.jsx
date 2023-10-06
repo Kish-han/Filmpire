@@ -50,7 +50,7 @@ const NavBar = () => {
     logInUser();
   }, [token]);
 
-  // console.log("Hello" ,user.id);
+  console.log("Hello" ,user);
 
   return (
     <>
@@ -84,7 +84,7 @@ const NavBar = () => {
                 className={classes.linkButton}
                 onClick={() => {}}
               >
-                {!isMobile && <>My Movies &nbsp;</>}
+                {!isMobile && <>{user.username} &nbsp;</>}
                 <Avatar
                   style={{ width: "30px", height: "30px" }}
                   alt="profile"

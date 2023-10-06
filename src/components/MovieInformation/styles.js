@@ -4,13 +4,16 @@ export default makeStyles((theme) => ({
   containerSpaceAround: {
     display: "flex",
     justifyContent: "space-around",
-    // flexDirection: "column",
     margin: "10px 0px !important",
-    // backgroundColor: "red",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "column",
+      flexWrap: "wrap",
+    },
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       flexWrap: "wrap",
     },
+
   },
   poster: {
     borderRadius: "20px",
@@ -18,8 +21,10 @@ export default makeStyles((theme) => ({
     width: "80%",
     [theme.breakpoints.down("md")]: {
       margin: "0 auto",
-      width: "50%",
-      height: "350px",
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: "100%",
     },
     [theme.breakpoints.down("sm")]: {
       margin: "0 auto",
@@ -47,30 +52,30 @@ export default makeStyles((theme) => ({
       padding: "0.5rem 1rem",
     },
   },
-  castImage:{
+  castImage: {
     width: '100%',
     maxWidth: '7em',
     height: '8em',
     objectFit: 'cover',
     borderRadius: '10px',
   },
-  buttonsContainer:{
+  buttonsContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     }
   },
-  modal:{
+  modal: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  video:{
+  video: {
     width: "50%",
     height: "50%",
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints.down('sm')]: {
       width: "90%",
       height: "90%",
     }

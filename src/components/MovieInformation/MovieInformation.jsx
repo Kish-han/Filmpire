@@ -40,7 +40,7 @@ const MovieInformation = () => {
   const isMovieFavorited = true;
   const isMovieWatchlisted = false;
 
-  if (isFetching) {
+  if (isFetching || isRecommendationsFetching) {
     return (
       <Box display="flex" justifyContent="center">
         <CircularProgress size="4rem" />
@@ -68,7 +68,7 @@ const MovieInformation = () => {
   return (
     <Grid>
       <Grid className={classes.containerSpaceAround}>
-        <Grid item sm={12} lg={4}>
+        <Grid item sm={12} lg={4} style={{display:'flex', justifyContent:'center'}}>
           <img
             className={classes.poster}
             src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`}
@@ -92,7 +92,7 @@ const MovieInformation = () => {
                   marginLeft: "10px",
                 }}
               >
-                {data.vote_average}
+                {data.vote_average} /10
               </Typography>
             </Box>
             <Typography variant="h6" align="center" gutterBottom>
@@ -109,12 +109,12 @@ const MovieInformation = () => {
                 className={classes.links}
                 to="/"
                 onClick={() => dispatch(selectGenreOrCategory(genre.id))}
-                button
               >
                 <img
                   src={genreIcons[genre.name.toLowerCase()]}
                   className={classes.genreImage}
                   height={30}
+                  alt={genre.name}
                 />
                 <Typography color="textprimary" variant="subtitle1" style={{ textDecoration: "none" }}>
                   {genre?.name}

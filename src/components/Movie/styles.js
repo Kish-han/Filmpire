@@ -2,11 +2,17 @@ import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({
     movie: {
+        backgroundColor: 'red',
         padding: '10px',
         overflowX: 'hidden',
-        backgroundColor: 'red'
+        backgroundColor: 'red',
+        [theme.breakpoints.down("sm")]: {
+            width: "100%",
+            height: "350px",
+          },
     },
     links:{
+        width: '100%',
         alignItems: 'center',
         fontWeight: 'bolder',
         textDecoration: 'none',
@@ -25,7 +31,10 @@ export default makeStyles((theme) => ({
         '&:hover': {
             transform: 'scale(1.05)',
             transition: 'transform 0.5s ease-in-out',
-        }
+        },
+        [theme.breakpoints.up('xs')]: {
+            height: '350px'
+        },
     },
     title : {
         color: theme.palette.text.primary,
