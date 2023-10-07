@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useGetActorsQuery, useGetMoviesByActorIdQuery } from '../../services/TMDB'
 import useStyles from './styles'
 import { ArrowBack } from '@mui/icons-material'

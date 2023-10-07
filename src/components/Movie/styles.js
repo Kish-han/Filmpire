@@ -2,10 +2,8 @@ import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({
     movie: {
-        backgroundColor: 'red',
         padding: '10px',
         overflowX: 'hidden',
-        backgroundColor: 'red',
         [theme.breakpoints.down("sm")]: {
             width: "100%",
             height: "350px",

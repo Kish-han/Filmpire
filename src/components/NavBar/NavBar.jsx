@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, userSelector } from "../../features/auth";
 
 const NavBar = () => {
-  const {isAuthenticated, user} = useSelector(userSelector);
+  const { isAuthenticated, user } = useSelector(userSelector);
   const [mobileOpen, setMobileOpen] = useState(false);
   const classes = useStyles();
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -38,7 +38,7 @@ const NavBar = () => {
     const logInUser = async () => {
       if (token) {
         if (sessionIdFromLocalStorage) {
-          const { data:userData } = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`);
+          const { data: userData } = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`);
           dispatch(setUser(userData));
         } else {
           const sessionId = await createSessionId();
@@ -50,7 +50,6 @@ const NavBar = () => {
     logInUser();
   }, [token]);
 
-  console.log("Hello" ,user);
 
   return (
     <>
@@ -67,7 +66,7 @@ const NavBar = () => {
               <Menu />
             </IconButton>
           )}
-          <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
+          <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => { }}>
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
           {!isMobile && <Search />}
@@ -82,13 +81,13 @@ const NavBar = () => {
                 component={Link}
                 to={`/profile/${user.id}`}
                 className={classes.linkButton}
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 {!isMobile && <>{user.username} &nbsp;</>}
                 <Avatar
                   style={{ width: "30px", height: "30px" }}
                   alt="profile"
-                  src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+                  src={`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`}
                 />
               </Button>
             )}

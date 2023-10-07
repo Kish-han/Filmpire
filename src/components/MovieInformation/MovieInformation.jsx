@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   Typography,
@@ -25,20 +25,33 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import genreIcons from "../../assets/genres";
-import { useGetMovieQuery, useGetRecommendationsQuery } from "../../services/TMDB";
+import { useGetMovieQuery, useGetRecommendationsQuery, useGetListQuery } from "../../services/TMDB";
 import useStyles from "./styles";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import MovieList from "../MovieList/MovieList";
+import { userSelector } from '../../features/auth'
 
 const MovieInformation = () => {
   const classes = useStyles();
   const { id } = useParams();
-  const { data, isFetching, error } = useGetMovieQuery({ id });
+  const { user } = useSelector(userSelector)
   const dispatch = useDispatch();
-  const [open,setOpen] = useState(false);
-  const { data:recommendations, isFetching: isRecommendationsFetching } = useGetRecommendationsQuery({ movie_id: id })
-  const isMovieFavorited = true;
-  const isMovieWatchlisted = false;
+  const { data, isFetching, error } = useGetMovieQuery({ id });
+  const { data: recommendations, isFetching: isRecommendationsFetching } = useGetRecommendationsQuery({ movie_id: id })
+  const { data: favoriteMovies } = useGetListQuery({ listName: 'favorite', accountId: user.id, sessionId: localStorage.getItem('session_id'), page: 1 })
+  const { data: watchlistMovies } = useGetListQuery({ listName: 'favorite', accountId: user.id, sessionId: localStorage.getItem('session_id'), page: 1 })
+  const [open, setOpen] = useState(false);
+  const [isMovieFavorited, setIsMovieFavorited] = useState(false);
+  const [isMovieWatchlisted, setIsMovieWatchlisted] = useState(false);
+
+  useEffect(() => {
+    setIsMovieFavorited(!!favoriteMovies?.results?.find((movie) => movie?.id === data?.id));
+  }, [favoriteMovies, data])
+
+  useEffect(() => {
+    setIsMovieWatchlisted(!!watchlistMovies?.results?.find((movie) => movie?.id === data?.id));
+  }, [watchlistMovies, data])
+
 
   if (isFetching || isRecommendationsFetching) {
     return (
@@ -56,19 +69,29 @@ const MovieInformation = () => {
     );
   }
 
-  const addToFavorites = () => {
-
+  const addToFavorites = async () => {
+    await axios.post(`https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_API_KEY}&session_id=${localStorage.getItem('session_id')}`, {
+      media_type: 'movie',
+      media_id: id,
+      favorite: !isMovieFavorited
+    });
+    setIsMovieFavorited((prev) => !prev);
   };
 
-  const addToWatchlist = () => {
-
+  const addToWatchlist = async () => {
+    await axios.post(`https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${process.env.REACT_APP_TMDB_API_KEY}&session_id=${localStorage.getItem('session_id')}`, {
+      media_type: 'movie',
+      media_id: id,
+      watchlist: !isMovieWatchlisted
+    });
+    setIsMovieWatchlisted((prev) => !prev);
   };
 
 
   return (
     <Grid>
       <Grid className={classes.containerSpaceAround}>
-        <Grid item sm={12} lg={4} style={{display:'flex', justifyContent:'center'}}>
+        <Grid item sm={12} lg={4} style={{ display: 'flex', justifyContent: 'center' }}>
           <img
             className={classes.poster}
             src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`}
@@ -182,7 +205,7 @@ const MovieInformation = () => {
                   >
                     IMDB
                   </Button>
-                    <Button onClick={() => { setOpen(true) }} href="#" endIcon={<Theaters />}>
+                  <Button onClick={() => { setOpen(true) }} href="#" endIcon={<Theaters />}>
                     Trailer
                   </Button>
                 </ButtonGroup>
@@ -212,9 +235,9 @@ const MovieInformation = () => {
           (<Box>"Sorry nothing was found"</Box>)
         }
       </Box>
-      <Modal closeAfterTransition className={classes.modal} open={open} onClose={()=> setOpen(false)}>
-        {data?.videos?.results?.length > 0 &&(
-          <iframe autoPlay className={classes.video} frameBorder="0" title="Trailer" src={`https://www.youtube.com/embed/${data.videos.results[0].key}`} allow="autoPlay"/>
+      <Modal closeAfterTransition className={classes.modal} open={open} onClose={() => setOpen(false)}>
+        {data?.videos?.results?.length > 0 && (
+          <iframe autoPlay className={classes.video} frameBorder="0" title="Trailer" src={`https://www.youtube.com/embed/${data.videos.results[0].key}`} allow="autoPlay" />
         )}
       </Modal>
     </Grid>
