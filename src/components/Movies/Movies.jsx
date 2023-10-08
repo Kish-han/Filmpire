@@ -1,8 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CircularProgress, useMediaQuery, Typography, Box } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import { useGetMoviesQuery } from "../../services/TMDB";
 import MovieList from "../MovieList/MovieList";
 import Pagination from "../Pagination/Pagination";
