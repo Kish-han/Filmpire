@@ -10,18 +10,18 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://github.com/Kish-han/Filmpire/blob/main/src/assets/images/Homepage.png?raw=true" alt="project-screenshot" width="500" height="400/">
+<img src="https://github.com/Kish-han/Filmpire/blob/main/src/assets/images/Homepage.png?raw=true" alt="project-screenshot" />
 
-<img src="https://github.com/Kish-han/Filmpire/blob/main/src/assets/images/MovieInfo.png?raw=true" alt="project-screenshot" width="500" height="400/">
+<img src="https://github.com/Kish-han/Filmpire/blob/main/src/assets/images/MovieInfo.png?raw=true" alt="project-screenshot">
 
-<img src="https://github.com/Kish-han/Filmpire/blob/main/src/assets/images/Trailer.png?raw=true" alt="project-screenshot" width="500" height="400/">
+<img src="https://github.com/Kish-han/Filmpire/blob/main/src/assets/images/Trailer.png?raw=true" alt="project-screenshot" />
 
 
 <h2>🧐 Features</h2>
 
 Here're some of the project's best features:
 
-- Autentication
+- Authentication
 - Trailer Functionality
 - Movie information
 - Voice search
